@@ -172,8 +172,10 @@ public class Login_Frame extends JFrame {
 			if (admin == null) {
 				JOptionPane.showMessageDialog(this, "用户名或密码错误！");
 				return;
-			
 			}
+			JOptionPane.showMessageDialog(this, "欢迎【" + selectedItem.getName() + "】：" + admin.getName() + "登录系统");
+			this.dispose();// 隐藏登录界面
+			new Main_Frame(selectedItem, admin).setVisible(true);// 以管理员身份打开主界面，并显示出来
 		} else if ("教师".equals(selectedItem.getName())) {
 			// 教师
 

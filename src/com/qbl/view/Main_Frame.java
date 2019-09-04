@@ -7,6 +7,9 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import com.qbl.model.UserType;
+
 import javax.swing.JMenuBar;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
@@ -17,31 +20,39 @@ import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.awt.event.ActionEvent;
+import javax.swing.JRadioButton;
+import javax.swing.JTable;
+import javax.swing.JTree;
 
 public class Main_Frame extends JFrame {
 
 	private JPanel contentPane;
+	private UserType userType;
+	private Object userObject;
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					Main_Frame frame = new Main_Frame();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+//	/**
+//	 * Launch the application.
+//	 */
+//	public static void main(String[] args) {
+//		EventQueue.invokeLater(new Runnable() {
+//			public void run() {
+//				try {
+//					Main_Frame frame = new Main_Frame();
+//					frame.setVisible(true);
+//				} catch (Exception e) {
+//					e.printStackTrace();
+//				}
+//			}
+//		});
+//	}
 
 	/**
 	 * Create the frame.
 	 */
-	public Main_Frame() {
+	public Main_Frame(UserType userType, Object userObject) {
+		this.userType = userType;
+		this.userObject = userObject;
+
 		setTitle("\u5B66\u751F\u4FE1\u606F\u7BA1\u7406\u7CFB\u7EDF\u4E3B\u754C\u9762");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 850, 622);
@@ -54,6 +65,11 @@ public class Main_Frame extends JFrame {
 		menuBar.add(menu);
 
 		JMenuItem menuItem = new JMenuItem("\u4FEE\u6539\u5BC6\u7801");
+		menuItem.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent ae) {
+				editPassword(ae);
+			}
+		});
 		menuItem.setIcon(new ImageIcon(Main_Frame.class.getResource("/images/\u4FEE\u6539\u5BC6\u7801.png")));
 		menu.add(menuItem);
 
@@ -103,9 +119,13 @@ public class Main_Frame extends JFrame {
 		setContentPane(contentPane);
 	}
 
+	protected void editPassword(ActionEvent ae) {
+		// 修改密码
+		
+	}
+
 	protected void aboutUs(ActionEvent ae) {
-		// TODO Auto-generated method stub
-//		JOptionPane.showMessageDialog(this, "关于我们");
+		// 关于我们
 		try {
 			Desktop.getDesktop().browse(new URI("https://www.baidu.com/"));
 		} catch (IOException e) {
