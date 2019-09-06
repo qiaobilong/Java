@@ -64,6 +64,7 @@ public class Login_Frame extends JFrame {
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
+		setLocationRelativeTo(null);//居中
 
 		JLabel label = new JLabel("\u5B66\u751F\u4FE1\u606F\u7CFB\u7EDF\u767B\u5F55\u9875\u9762");
 		label.setIcon(new ImageIcon(Login_Frame.class.getResource("/images/logo.png")));
@@ -173,7 +174,7 @@ public class Login_Frame extends JFrame {
 				JOptionPane.showMessageDialog(this, "用户名或密码错误！");
 				return;
 			}
-			JOptionPane.showMessageDialog(this, "欢迎【" + selectedItem.getName() + "】：" + admin.getName() + "登录系统");
+//			JOptionPane.showMessageDialog(this, "欢迎【" + selectedItem.getName() + "】：" + admin.getName() + "登录系统");
 			this.dispose();// 隐藏登录界面
 			new Main_Frame(selectedItem, admin).setVisible(true);// 以管理员身份打开主界面，并显示出来
 		} else if ("教师".equals(selectedItem.getName())) {

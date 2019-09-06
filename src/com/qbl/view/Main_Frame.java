@@ -23,35 +23,28 @@ import java.awt.event.ActionEvent;
 import javax.swing.JRadioButton;
 import javax.swing.JTable;
 import javax.swing.JTree;
+import javax.swing.JDesktopPane;
+import java.awt.Color;
+import javax.swing.JLabel;
 
 public class Main_Frame extends JFrame {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
-	private UserType userType;
-	private Object userObject;
+	private JDesktopPane desktopPane;
+	public static UserType userType;
+	private static Object userObject;
 
-//	/**
-//	 * Launch the application.
-//	 */
-//	public static void main(String[] args) {
-//		EventQueue.invokeLater(new Runnable() {
-//			public void run() {
-//				try {
-//					Main_Frame frame = new Main_Frame();
-//					frame.setVisible(true);
-//				} catch (Exception e) {
-//					e.printStackTrace();
-//				}
-//			}
-//		});
-//	}
 
 	/**
 	 * Create the frame.
 	 */
 	public Main_Frame(UserType userType, Object userObject) {
-		this.userType = userType;
-		this.userObject = userObject;
+		Main_Frame.userType = userType;
+		Main_Frame.userObject = userObject;
 
 		setTitle("\u5B66\u751F\u4FE1\u606F\u7BA1\u7406\u7CFB\u7EDF\u4E3B\u754C\u9762");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -117,11 +110,18 @@ public class Main_Frame extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));
 		setContentPane(contentPane);
+		
+		desktopPane = new JDesktopPane();
+		desktopPane.setBackground(new Color(0, 128, 128));
+		contentPane.add(desktopPane, BorderLayout.CENTER);
+		setLocationRelativeTo(null);//æ”÷–
 	}
 
 	protected void editPassword(ActionEvent ae) {
 		// –ﬁ∏ƒ√‹¬Î
-		
+		EditPassword_Frame editPassword_Frame = new EditPassword_Frame();
+		editPassword_Frame.setVisible(true);
+		desktopPane.add(editPassword_Frame);
 	}
 
 	protected void aboutUs(ActionEvent ae) {
@@ -136,5 +136,4 @@ public class Main_Frame extends JFrame {
 			e.printStackTrace();
 		}
 	}
-
 }

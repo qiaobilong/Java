@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
+import javax.swing.JInternalFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
@@ -12,33 +13,32 @@ import com.qbl.model.UserType;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.JButton;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
-public class EditPassword_Frame extends JFrame {
+public class EditPassword_Frame extends JInternalFrame {
 
 	private JPanel contentPane;
 	private JTextField oldPasswordTextField;
 	private JTextField newPasswordTextField;
 	private JTextField confirmPasswordTextField;
-	private UserType userType;
-	private Object userObject;
 
 	/**
 	 * Create the frame.
 	 */
-	public EditPassword_Frame(UserType userType, Object userObject) {
-		this.userType = userType;
-		this.userObject = userObject;
+	public EditPassword_Frame() {
+		setTitle("\u4FEE\u6539\u5BC6\u7801");
 
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
+		setClosable(true);// 可关闭的
+		setIconifiable(true);// 可最小化
 
 		JLabel label = new JLabel("\u539F\u5BC6\u7801\uFF1A");
 
@@ -58,7 +58,7 @@ public class EditPassword_Frame extends JFrame {
 		JButton button = new JButton("\u786E\u8BA4");
 		button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent ae) {
-				
+				submitEdit(ae);
 			}
 		});
 
@@ -99,6 +99,29 @@ public class EditPassword_Frame extends JFrame {
 						.createParallelGroup(Alignment.BASELINE).addComponent(button_1).addComponent(button))
 				.addGap(26)));
 		contentPane.setLayout(gl_contentPane);
+	}
+
+	protected void submitEdit(ActionEvent ae) {
+		// TODO Auto-generated method stub
+		String oldPassword = oldPasswordTextField.getText().toString();
+		String newPassword = newPasswordTextField.getText().toString();
+		String confirmPassword = confirmPasswordTextField.getText().toString();
+		if("".equals(oldPassword) || oldPassword == null) {
+			JOptionPane.showMessageDialog(this, "请填写旧密码");
+			return;
+		}
+		if("".equals(newPassword) || newPassword == null) {
+			JOptionPane.showMessageDialog(this, "请填写新密码");
+			return;
+		}
+		if("".equals(confirmPassword) || confirmPassword == null) {
+			JOptionPane.showMessageDialog(this, "请填写确认新密码");
+			return;
+		}
+		if(!newPassword.equals(confirmPassword)) {
+			JOptionPane.showMessageDialog(this, "两次输入的密码不一致，请重新填写");
+			return;
+		}
 	}
 
 	protected void resetValue(ActionEvent ae) {
