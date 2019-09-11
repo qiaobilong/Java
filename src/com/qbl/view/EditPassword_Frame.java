@@ -8,6 +8,8 @@ import javax.swing.JInternalFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import com.qbl.dao.AdminDao;
+import com.qbl.model.Admin;
 import com.qbl.model.UserType;
 
 import javax.swing.GroupLayout;
@@ -18,6 +20,7 @@ import javax.swing.JTextField;
 import javax.swing.JButton;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
 import java.awt.event.ActionEvent;
 
 public class EditPassword_Frame extends JInternalFrame {
@@ -58,13 +61,20 @@ public class EditPassword_Frame extends JInternalFrame {
 		JButton button = new JButton("\u786E\u8BA4");
 		button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent ae) {
-				submitEdit(ae);
+				// 确认提交
+				try {
+					submitEdit(ae);
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			}
 		});
 
 		JButton button_1 = new JButton("\u91CD\u7F6E");
 		button_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent ae) {
+				// 重置界面
 				resetValue(ae);
 			}
 		});
@@ -101,27 +111,37 @@ public class EditPassword_Frame extends JInternalFrame {
 		contentPane.setLayout(gl_contentPane);
 	}
 
-	protected void submitEdit(ActionEvent ae) {
+	protected void submitEdit(ActionEvent ae) throws SQLException {
 		// TODO Auto-generated method stub
 		String oldPassword = oldPasswordTextField.getText().toString();
 		String newPassword = newPasswordTextField.getText().toString();
 		String confirmPassword = confirmPasswordTextField.getText().toString();
-		if("".equals(oldPassword) || oldPassword == null) {
+		if ("".equals(oldPassword) || oldPassword == null) {
 			JOptionPane.showMessageDialog(this, "请填写旧密码");
 			return;
 		}
-		if("".equals(newPassword) || newPassword == null) {
+		if ("".equals(newPassword) || newPassword == null) {
 			JOptionPane.showMessageDialog(this, "请填写新密码");
 			return;
 		}
-		if("".equals(confirmPassword) || confirmPassword == null) {
+		if ("".equals(confirmPassword) || confirmPassword == null) {
 			JOptionPane.showMessageDialog(this, "请填写确认新密码");
 			return;
 		}
-		if(!newPassword.equals(confirmPassword)) {
+		if (!newPassword.equals(confirmPassword)) {
 			JOptionPane.showMessageDialog(this, "两次输入的密码不一致，请重新填写");
 			return;
 		}
+		if ("系统管理员".equals(Main_Frame.userType.getName())) {
+			AdminDao adminDao = new AdminDao();
+			Admin adminTmp = new Admin();
+			Admin admin = (Admin) Main_Frame.userObject;
+			adminTmp.setName(admin.getName());
+			adminTmp.setPassword(oldPassword);
+			JOptionPane.showMessageDialog(this, adminDao.editPassword(adminTmp, newPassword));
+			return;
+		}
+
 	}
 
 	protected void resetValue(ActionEvent ae) {

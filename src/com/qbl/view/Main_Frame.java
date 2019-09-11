@@ -36,8 +36,7 @@ public class Main_Frame extends JFrame {
 	private JPanel contentPane;
 	private JDesktopPane desktopPane;
 	public static UserType userType;
-	private static Object userObject;
-
+	public static Object userObject;
 
 	/**
 	 * Create the frame.
@@ -67,6 +66,13 @@ public class Main_Frame extends JFrame {
 		menu.add(menuItem);
 
 		JMenuItem menuItem_1 = new JMenuItem("\u9000\u51FA\u7CFB\u7EDF");
+		menuItem_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent ae) {
+				if (JOptionPane.showConfirmDialog(Main_Frame.this, "确认退出吗?") == JOptionPane.OK_OPTION) {
+					System.exit(0);// 结束当前正在运行的java虚拟机；0表示正常退出；非0表示异常退出，常用于catch中；
+				}
+			}
+		});
 		menuItem_1.setIcon(new ImageIcon(Main_Frame.class.getResource("/images/\u9000\u51FA.png")));
 		menu.add(menuItem_1);
 
@@ -110,11 +116,11 @@ public class Main_Frame extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));
 		setContentPane(contentPane);
-		
+
 		desktopPane = new JDesktopPane();
 		desktopPane.setBackground(new Color(0, 128, 128));
 		contentPane.add(desktopPane, BorderLayout.CENTER);
-		setLocationRelativeTo(null);//居中
+		setLocationRelativeTo(null);// 居中
 	}
 
 	protected void editPassword(ActionEvent ae) {
