@@ -58,8 +58,8 @@ public class EditPassword_Frame extends JInternalFrame {
 		confirmPasswordTextField = new JTextField();
 		confirmPasswordTextField.setColumns(10);
 
-		JButton button = new JButton("\u786E\u8BA4");
-		button.addActionListener(new ActionListener() {
+		JButton confirmButton = new JButton("\u786E\u8BA4");
+		confirmButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent ae) {
 				// 确认提交
 				try {
@@ -71,8 +71,8 @@ public class EditPassword_Frame extends JInternalFrame {
 			}
 		});
 
-		JButton button_1 = new JButton("\u91CD\u7F6E");
-		button_1.addActionListener(new ActionListener() {
+		JButton resetButton = new JButton("\u91CD\u7F6E");
+		resetButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent ae) {
 				// 重置界面
 				resetValue(ae);
@@ -90,7 +90,7 @@ public class EditPassword_Frame extends JInternalFrame {
 								.addComponent(oldPasswordTextField, GroupLayout.DEFAULT_SIZE, 142, Short.MAX_VALUE)
 								.addComponent(newPasswordTextField).addComponent(confirmPasswordTextField)))
 						.addGroup(Alignment.TRAILING, gl_contentPane.createSequentialGroup().addContainerGap()
-								.addComponent(button).addGap(80).addComponent(button_1)))
+								.addComponent(confirmButton).addGap(80).addComponent(resetButton)))
 				.addContainerGap(105, Short.MAX_VALUE)));
 		gl_contentPane.setVerticalGroup(gl_contentPane.createParallelGroup(Alignment.LEADING).addGroup(gl_contentPane
 				.createSequentialGroup().addGap(60)
@@ -106,7 +106,7 @@ public class EditPassword_Frame extends JInternalFrame {
 						confirmPasswordTextField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
 						GroupLayout.PREFERRED_SIZE))
 				.addPreferredGap(ComponentPlacement.RELATED, 43, Short.MAX_VALUE).addGroup(gl_contentPane
-						.createParallelGroup(Alignment.BASELINE).addComponent(button_1).addComponent(button))
+						.createParallelGroup(Alignment.BASELINE).addComponent(resetButton).addComponent(confirmButton))
 				.addGap(26)));
 		contentPane.setLayout(gl_contentPane);
 	}

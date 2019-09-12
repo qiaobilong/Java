@@ -93,6 +93,11 @@ public class Main_Frame extends JFrame {
 		menuBar.add(mnNewMenu);
 
 		JMenuItem mntmNewMenuItem = new JMenuItem("\u73ED\u7EA7\u6DFB\u52A0");
+		mntmNewMenuItem.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent ae) {
+				addStuClass(ae);
+			}
+		});
 		mntmNewMenuItem.setIcon(new ImageIcon(Main_Frame.class.getResource("/images/\u6DFB\u52A0.png")));
 		mnNewMenu.add(mntmNewMenuItem);
 
@@ -121,6 +126,13 @@ public class Main_Frame extends JFrame {
 		desktopPane.setBackground(new Color(0, 128, 128));
 		contentPane.add(desktopPane, BorderLayout.CENTER);
 		setLocationRelativeTo(null);// æ”÷–
+	}
+
+	protected void addStuClass(ActionEvent ae) {
+		// TODO Auto-generated method stub
+		AddStuClass_Frame addStuClass_Frame = new AddStuClass_Frame();
+		addStuClass_Frame.setVisible(true);
+		desktopPane.add(addStuClass_Frame);
 	}
 
 	protected void editPassword(ActionEvent ae) {
