@@ -105,6 +105,7 @@ public class AddStuClass_Frame extends JInternalFrame {
 		} else {
 			JOptionPane.showMessageDialog(this, "提交失败！");
 		}
+		stuClassDao.closeDao();// 关闭数据库连接
 	}
 
 	protected void resetValues(ActionEvent ae) {

@@ -139,6 +139,7 @@ public class EditPassword_Frame extends JInternalFrame {
 			adminTmp.setName(admin.getName());
 			adminTmp.setPassword(oldPassword);
 			JOptionPane.showMessageDialog(this, adminDao.editPassword(adminTmp, newPassword));
+			adminDao.closeDao();// 关闭数据库连接
 			return;
 		}
 

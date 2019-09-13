@@ -27,10 +27,6 @@ public class AdminDao extends BaseDao {
 		} catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();
-		} finally {
-			if (con != null) {
-				con.close();
-			}
 		}
 		return adminRst;
 	}
@@ -68,10 +64,6 @@ public class AdminDao extends BaseDao {
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-		} finally {
-			if (con != null) {
-				con.close();
-			}
 		}
 		reString = "ÐÞ¸ÄÊ§°Ü";
 		return reString;
