@@ -3,6 +3,7 @@ package com.qbl.view;
 import java.awt.BorderLayout;
 import java.awt.Desktop;
 import java.awt.EventQueue;
+import java.awt.TexturePaint;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -101,7 +102,14 @@ public class Main_Frame extends JFrame {
 		mntmNewMenuItem.setIcon(new ImageIcon(Main_Frame.class.getResource("/images/\u6DFB\u52A0.png")));
 		mnNewMenu.add(mntmNewMenuItem);
 
-		JMenuItem menuItem_4 = new JMenuItem("\u73ED\u7EA7\u4FE1\u606F");
+		JMenuItem menuItem_4 = new JMenuItem("\u73ED\u7EA7\u7BA1\u7406");
+		menuItem_4.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent ae) {
+				StuClassManager_Frame stuClassManager_Frame = new StuClassManager_Frame();
+				stuClassManager_Frame.setVisible(true);
+				desktopPane.add(stuClassManager_Frame);
+			}
+		});
 		menuItem_4.setIcon(new ImageIcon(Main_Frame.class.getResource("/images/\u73ED\u7EA7\u5217\u8868.png")));
 		mnNewMenu.add(menuItem_4);
 
