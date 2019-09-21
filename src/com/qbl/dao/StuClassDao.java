@@ -31,13 +31,12 @@ public class StuClassDao<Stuclass> extends BaseDao {
 		List<Stuclass> retList = new ArrayList<Stuclass>();
 		String sql = "select * from s_class";
 		if (!StringUtil.isEmpty(stuClass.getName())) {
-			sql += " where name like '?'";
+			sql += " where name like '%" + stuClass.getName() + "%'";
 		}
 		try {
 			PreparedStatement prepareStatement = con.prepareStatement(sql);
-			prepareStatement.setString(1, "%" + stuClass.getName() + "%");
 			ResultSet executeQuery = prepareStatement.executeQuery();
-			while(executeQuery.next()) {
+			while (executeQuery.next()) {
 				StuClass sc = new StuClass();
 				sc.setId(executeQuery.getInt("id"));
 				sc.setName(executeQuery.getString("name"));
