@@ -6,7 +6,7 @@ import java.sql.SQLException;
 import com.qbl.util.DbUtil;
 
 public class BaseDao {
-	public Connection con = new DbUtil().getCon();
+	public Connection con = new DbUtil().getConnection("mysql");
 	public void closeDao() {
 		try {
 			con.close();
