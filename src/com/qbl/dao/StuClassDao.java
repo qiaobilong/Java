@@ -16,10 +16,9 @@ public class StuClassDao<Stuclass> extends BaseDao {
 			PreparedStatement prepareStatement = con.prepareStatement(sql);
 			prepareStatement.setString(1, stuClass.getName());
 			prepareStatement.setString(2, stuClass.getInfo());
-			if (prepareStatement.executeUpdate() > 0) {
+			if (prepareStatement.executeUpdate() > 0) {// 返回的是int，表示有多少条数据受到了影响
 				return true;
 			}
-
 		} catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();
@@ -48,5 +47,20 @@ public class StuClassDao<Stuclass> extends BaseDao {
 			e.printStackTrace();
 		}
 		return retList;
+	}
+
+	public boolean delete(int id) {
+		String sql = "delete from s_class where id = ?";
+		try {
+			PreparedStatement prepareStatement = con.prepareStatement(sql);
+			prepareStatement.setInt(1, id);
+			if (prepareStatement.executeUpdate() > 0) {
+				return true;
+			}
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
+		return false;
 	}
 }

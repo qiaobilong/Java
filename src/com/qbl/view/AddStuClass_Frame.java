@@ -13,6 +13,7 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 
 import com.qbl.dao.StuClassDao;
 import com.qbl.model.StuClass;
+import com.qbl.util.StringUtil;
 
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
@@ -93,12 +94,13 @@ public class AddStuClass_Frame extends JInternalFrame {
 	protected void submitStuClass(ActionEvent ae) throws SQLException {
 		// TODO Auto-generated method stub
 		StuClass stuClass = new StuClass();
-		if ("".equals(stuClassNameTextField) || stuClassNameTextField == null) {
+//		if ("".equals(stuClassNameTextField) || stuClassNameTextField == null) {
+		if (StringUtil.isEmpty(stuClassNameTextField.getText())) {// 2019-10-18获取具体内容后，再判断是否为空
 			JOptionPane.showMessageDialog(this, "班级姓名不能为空！");
 			return;
 		}
-		stuClass.setName(stuClassNameTextField.getText().toString());
-		stuClass.setInfo(stuClassInfoTextField.getText().toString());
+		stuClass.setName(stuClassNameTextField.getText());
+		stuClass.setInfo(stuClassInfoTextField.getText());
 		StuClassDao stuClassDao = new StuClassDao();
 		if (stuClassDao.addStuClass(stuClass)) {
 			JOptionPane.showMessageDialog(this, "提交成功！");
