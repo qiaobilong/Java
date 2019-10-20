@@ -26,7 +26,7 @@ public class StuClassDao<Stuclass> extends BaseDao {
 		return false;
 	}
 
-	public List<Stuclass> getClassList(StuClass stuClass) throws SQLException {
+	public List<Stuclass> getStuClassList(StuClass stuClass) throws SQLException {
 		List<Stuclass> retList = new ArrayList<Stuclass>();
 		String sql = "select * from s_class";
 		if (!StringUtil.isEmpty(stuClass.getName())) {
@@ -49,6 +49,23 @@ public class StuClassDao<Stuclass> extends BaseDao {
 		return retList;
 	}
 
+	public boolean update(StuClass stuClass) {
+		String sql  = "update s_class set name = ?, info = ? where id = ?";
+		try {
+			PreparedStatement prepareStatement = con.prepareStatement(sql);
+			prepareStatement.setString(1, stuClass.getName());
+			prepareStatement.setString(2, stuClass.getInfo());
+			prepareStatement.setInt(3, stuClass.getId());
+			if (prepareStatement.executeUpdate() > 0) {// 返回的是int，表示有多少条数据受到了影响
+				return true;
+			}
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
+		return false;
+	}
+	
 	public boolean delete(int id) {
 		String sql = "delete from s_class where id = ?";
 		try {

@@ -18,6 +18,7 @@ import javax.swing.table.TableModel;
 
 import com.qbl.dao.StuClassDao;
 import com.qbl.model.StuClass;
+import com.qbl.util.StringUtil;
 
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
@@ -40,7 +41,7 @@ public class StuClassManager_Frame extends JInternalFrame {
 	 */
 	public StuClassManager_Frame() {
 		setTitle("\u73ED\u7EA7\u4FE1\u606F\u7BA1\u7406");
-		setBounds(100, 100, 557, 500);
+		setBounds(100, 100, 557, 454);
 		setClosable(true);// 可关闭的
 		setIconifiable(true);// 可最小化
 
@@ -114,8 +115,12 @@ public class StuClassManager_Frame extends JInternalFrame {
 												.addComponent(editStuClassInfoTextArea, GroupLayout.PREFERRED_SIZE, 133,
 														GroupLayout.PREFERRED_SIZE))
 										.addGap(63)
-										.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-												.addComponent(submitDeleteButton).addComponent(submitEditButton))))
+										.addGroup(groupLayout.createParallelGroup(Alignment.LEADING, false)
+												.addComponent(submitDeleteButton, GroupLayout.DEFAULT_SIZE,
+														GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+												.addComponent(submitEditButton, GroupLayout.DEFAULT_SIZE,
+														GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+										.addGap(96)))
 						.addContainerGap(21, Short.MAX_VALUE)));
 		groupLayout.setVerticalGroup(groupLayout.createParallelGroup(Alignment.LEADING).addGroup(groupLayout
 				.createSequentialGroup().addGap(28)
@@ -123,19 +128,19 @@ public class StuClassManager_Frame extends JInternalFrame {
 						.addComponent(searchClassNameTextField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
 								GroupLayout.PREFERRED_SIZE)
 						.addComponent(searchButton).addComponent(resetButton))
-				.addGap(18).addComponent(scrollPane, GroupLayout.PREFERRED_SIZE, 231, GroupLayout.PREFERRED_SIZE)
-				.addGap(37)
+				.addGap(18).addComponent(scrollPane, GroupLayout.PREFERRED_SIZE, 185, GroupLayout.PREFERRED_SIZE)
+				.addGap(18)
 				.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE).addComponent(lblNewLabel)
 						.addComponent(editStuClassNameTextField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
 								GroupLayout.PREFERRED_SIZE)
 						.addComponent(submitEditButton))
-				.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-						.addGroup(groupLayout.createSequentialGroup().addGap(18)
-								.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE).addComponent(label_1)
-										.addComponent(editStuClassInfoTextArea, GroupLayout.PREFERRED_SIZE, 75,
-												GroupLayout.PREFERRED_SIZE)))
-						.addGroup(groupLayout.createSequentialGroup().addGap(40).addComponent(submitDeleteButton)))
-				.addContainerGap(17, Short.MAX_VALUE)));
+				.addGap(18)
+				.addGroup(groupLayout.createParallelGroup(Alignment.LEADING).addComponent(label_1)
+						.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+								.addComponent(editStuClassInfoTextArea, GroupLayout.PREFERRED_SIZE, 48,
+										GroupLayout.PREFERRED_SIZE)
+								.addComponent(submitDeleteButton)))
+				.addContainerGap(82, Short.MAX_VALUE)));
 
 		stuClassListTable = new JTable();
 		stuClassListTable.addMouseListener(new MouseAdapter() {
@@ -167,21 +172,61 @@ public class StuClassManager_Frame extends JInternalFrame {
 			JOptionPane.showMessageDialog(this, "请选中要删除的数据！！！");
 			return;
 		}
-		DefaultTableModel dft = (DefaultTableModel) stuClassListTable.getModel();
-		int id = Integer.parseInt(dft.getValueAt(stuClassListTable.getSelectedRow(), 0).toString());
-		StuClassDao<StuClass> stuClassDao = new StuClassDao<StuClass>();
-		if (stuClassDao.delete(id)) {
-			JOptionPane.showMessageDialog(this, "删除成功！");
+		if (JOptionPane.showConfirmDialog(this, "确认要删除吗？") == JOptionPane.OK_OPTION) {
+			DefaultTableModel dft = (DefaultTableModel) stuClassListTable.getModel();
+			int id = Integer.parseInt(dft.getValueAt(stuClassListTable.getSelectedRow(), 0).toString());
+			StuClassDao<StuClass> stuClassDao = new StuClassDao<StuClass>();
+			if (stuClassDao.delete(id)) {
+				JOptionPane.showMessageDialog(this, "删除成功！");
+			} else {
+				JOptionPane.showMessageDialog(this, "删除失败！");
+			}
+			stuClassDao.closeDao();
+			setTable(new StuClass());
 		} else {
-			JOptionPane.showMessageDialog(this, "删除失败！");
+			return;
 		}
-		stuClassDao.closeDao();
-		setTable(new StuClass());
 	}
 
 	protected void submitEditAct(ActionEvent ae) {
 		// TODO Auto-generated method stub
-
+		int index = stuClassListTable.getSelectedRow();
+		if (index == -1) {// 未选中时，为-1
+			JOptionPane.showMessageDialog(this, "请选中要删除的数据！！！");
+			return;
+		}
+		DefaultTableModel dft = (DefaultTableModel) stuClassListTable.getModel();
+		int id = Integer.parseInt(dft.getValueAt(stuClassListTable.getSelectedRow(), 0).toString());
+		String stuClassName = dft.getValueAt(stuClassListTable.getSelectedRow(), 1).toString();
+		String stuClassInfo = dft.getValueAt(stuClassListTable.getSelectedRow(), 2).toString();
+		String editStuClassName = editStuClassNameTextField.getText();
+		String editStuClassInfo = editStuClassInfoTextArea.getText();
+		if (stuClassName.equals(editStuClassName) && stuClassInfo.equals(editStuClassInfo)) {
+			JOptionPane.showMessageDialog(this, "还未进行任何修改");
+			return;
+		}
+		if(StringUtil.isEmpty(editStuClassName)) {
+			JOptionPane.showMessageDialog(this, "班级姓名不可为空");
+			return;
+		}
+		if (JOptionPane.showConfirmDialog(this, "确认要更改吗？") == JOptionPane.OK_OPTION) {
+			StuClass stuClass = new StuClass();
+			stuClass.setId(id);
+			stuClass.setName(editStuClassName);
+			stuClass.setInfo(editStuClassInfo);
+			StuClassDao<StuClass> stuClassDao = new StuClassDao<StuClass>();
+			if (stuClassDao.update(stuClass)) {
+				JOptionPane.showMessageDialog(this, "更新成功！");
+				editStuClassNameTextField.setText("");
+				editStuClassInfoTextArea.setText("");
+			} else {
+				JOptionPane.showMessageDialog(this, "更新失败！");
+			}
+			stuClassDao.closeDao();
+			setTable(new StuClass());
+		} else {
+			return;
+		}
 	}
 
 	protected void selectTableRow(MouseEvent me) {
@@ -199,7 +244,7 @@ public class StuClassManager_Frame extends JInternalFrame {
 
 		StuClassDao<StuClass> stuClassDao = new StuClassDao<StuClass>();
 		try {
-			List<StuClass> classList = stuClassDao.getClassList(stuClass);
+			List<StuClass> classList = stuClassDao.getStuClassList(stuClass);
 			for (StuClass sc : classList) {
 				Vector v = new Vector();
 				v.add(sc.getId());

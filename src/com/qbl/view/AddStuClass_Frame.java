@@ -104,6 +104,8 @@ public class AddStuClass_Frame extends JInternalFrame {
 		StuClassDao stuClassDao = new StuClassDao();
 		if (stuClassDao.addStuClass(stuClass)) {
 			JOptionPane.showMessageDialog(this, "提交成功！");
+			stuClassNameTextField.setText("");
+			stuClassInfoTextField.setText("");
 		} else {
 			JOptionPane.showMessageDialog(this, "提交失败！");
 		}
