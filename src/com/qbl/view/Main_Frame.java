@@ -82,6 +82,13 @@ public class Main_Frame extends JFrame {
 		menuBar.add(menu_1);
 
 		JMenuItem menuItem_2 = new JMenuItem("\u5B66\u751F\u6DFB\u52A0");
+		menuItem_2.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent ae) {
+				AddStudent_Frame addStudent_Frame = new AddStudent_Frame();
+				addStudent_Frame.setVisible(true);
+				desktopPane.add(addStudent_Frame);
+			}
+		});
 		menuItem_2.setIcon(new ImageIcon(Main_Frame.class.getResource("/images/\u6DFB\u52A0.png")));
 		menu_1.add(menuItem_2);
 

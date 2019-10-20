@@ -10,6 +10,7 @@ public class BaseDao {
 	public void closeDao() {
 		try {
 			con.close();
+			System.out.println("数据库连接已关闭！");
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
