@@ -60,7 +60,10 @@ public class Main_Frame extends JFrame {
 		JMenuItem menuItem = new JMenuItem("\u4FEE\u6539\u5BC6\u7801");
 		menuItem.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent ae) {
-				editPassword(ae);
+				// 修改密码
+				EditPassword_Frame editPassword_Frame = new EditPassword_Frame();
+				editPassword_Frame.setVisible(true);
+				desktopPane.add(editPassword_Frame);
 			}
 		});
 		menuItem.setIcon(new ImageIcon(Main_Frame.class.getResource("/images/\u4FEE\u6539\u5BC6\u7801.png")));
@@ -69,6 +72,7 @@ public class Main_Frame extends JFrame {
 		JMenuItem menuItem_1 = new JMenuItem("\u9000\u51FA\u7CFB\u7EDF");
 		menuItem_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent ae) {
+				// 退出系统
 				if (JOptionPane.showConfirmDialog(Main_Frame.this, "确认退出吗?") == JOptionPane.OK_OPTION) {
 					System.exit(0);// 结束当前正在运行的java虚拟机；0表示正常退出；非0表示异常退出，常用于catch中；
 				}
@@ -84,6 +88,7 @@ public class Main_Frame extends JFrame {
 		JMenuItem menuItem_2 = new JMenuItem("\u5B66\u751F\u6DFB\u52A0");
 		menuItem_2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent ae) {
+				// 学生添加
 				AddStudent_Frame addStudent_Frame = new AddStudent_Frame();
 				addStudent_Frame.setVisible(true);
 				desktopPane.add(addStudent_Frame);
@@ -103,7 +108,10 @@ public class Main_Frame extends JFrame {
 		JMenuItem mntmNewMenuItem = new JMenuItem("\u73ED\u7EA7\u6DFB\u52A0");
 		mntmNewMenuItem.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent ae) {
-				addStuClass(ae);
+				// 班级添加
+				AddStuClass_Frame addStuClass_Frame = new AddStuClass_Frame();
+				addStuClass_Frame.setVisible(true);
+				desktopPane.add(addStuClass_Frame);
 			}
 		});
 		mntmNewMenuItem.setIcon(new ImageIcon(Main_Frame.class.getResource("/images/\u6DFB\u52A0.png")));
@@ -112,6 +120,7 @@ public class Main_Frame extends JFrame {
 		JMenuItem menuItem_4 = new JMenuItem("\u73ED\u7EA7\u7BA1\u7406");
 		menuItem_4.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent ae) {
+				// 班级管理
 				StuClassManager_Frame stuClassManager_Frame = new StuClassManager_Frame();
 				stuClassManager_Frame.setVisible(true);
 				desktopPane.add(stuClassManager_Frame);
@@ -127,7 +136,14 @@ public class Main_Frame extends JFrame {
 		JMenuItem menuItem_5 = new JMenuItem("\u5173\u4E8E\u6211\u4EEC");
 		menuItem_5.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent ae) {
-				aboutUs(ae);
+				// 关于我们
+				try {
+					Desktop.getDesktop().browse(new URI("https://www.baidu.com/"));
+				} catch (IOException e) {
+					e.printStackTrace();
+				} catch (URISyntaxException e) {
+					e.printStackTrace();
+				}
 			}
 		});
 		menuItem_5.setIcon(new ImageIcon(Main_Frame.class.getResource("/images/\u5173\u4E8E\u6211\u4EEC.png")));
@@ -141,32 +157,5 @@ public class Main_Frame extends JFrame {
 		desktopPane.setBackground(new Color(0, 128, 128));
 		contentPane.add(desktopPane, BorderLayout.CENTER);
 		setLocationRelativeTo(null);// 居中
-	}
-
-	protected void addStuClass(ActionEvent ae) {
-		// TODO Auto-generated method stub
-		AddStuClass_Frame addStuClass_Frame = new AddStuClass_Frame();
-		addStuClass_Frame.setVisible(true);
-		desktopPane.add(addStuClass_Frame);
-	}
-
-	protected void editPassword(ActionEvent ae) {
-		// 修改密码
-		EditPassword_Frame editPassword_Frame = new EditPassword_Frame();
-		editPassword_Frame.setVisible(true);
-		desktopPane.add(editPassword_Frame);
-	}
-
-	protected void aboutUs(ActionEvent ae) {
-		// 关于我们
-		try {
-			Desktop.getDesktop().browse(new URI("https://www.baidu.com/"));
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (URISyntaxException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 	}
 }
