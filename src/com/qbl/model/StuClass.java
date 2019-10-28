@@ -45,6 +45,6 @@ public class StuClass {
 
 	@Override
 	public String toString() {
-		return "StuClass [id=" + id + ", name=" + name + ", info=" + info + "]";
+		return name;
 	}
 }
