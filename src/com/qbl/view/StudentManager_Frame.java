@@ -16,8 +16,8 @@ import javax.swing.JScrollPane;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 
-import com.qbl.dao.StuClassDao;
-import com.qbl.model.StuClass;
+import com.qbl.dao.StudentDao;
+import com.qbl.model.Student;
 import com.qbl.util.StringUtil;
 
 import java.awt.event.ActionListener;
@@ -34,10 +34,11 @@ import javax.swing.JRadioButton;
 
 public class StudentManager_Frame extends JInternalFrame {
 	private JTextField searchStudentNameTextField;
-	private JTable stuClassListTable;
+	private JTable studentListTable;
 	private JTextField editStudentNameTextField;
 	private JTextField editStudentPasswordTextField;
-
+	private JComboBox stuClassInfoComboBox;
+	
 	/**
 	 * Create the frame.
 	 */
@@ -53,11 +54,18 @@ public class StudentManager_Frame extends JInternalFrame {
 		searchStudentNameTextField.setColumns(10);
 
 		JButton searchButton = new JButton("\u67E5\u8BE2");
+		searchButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent ae) {
+				Student student = new Student();
+				student.setName(searchStudentNameTextField.getName());
+				setTable(student);
+			}
+		});
 
 		JScrollPane scrollPane = new JScrollPane();
 
 		JButton resetButton = new JButton("\u91CD\u7F6E");
-
+		
 		JLabel lblNewLabel = new JLabel("\u5B66\u751F\u59D3\u540D\uFF1A");
 
 		editStudentNameTextField = new JTextField();
@@ -69,7 +77,7 @@ public class StudentManager_Frame extends JInternalFrame {
 
 		JLabel label_2 = new JLabel("\u6240\u5C5E\u73ED\u7EA7\uFF1A");
 
-		JComboBox stuClassInfoComboBox = new JComboBox();
+		stuClassInfoComboBox = new JComboBox();
 
 		JLabel label_1 = new JLabel("\u6240\u5C5E\u73ED\u7EA7\uFF1A");
 
@@ -156,9 +164,9 @@ public class StudentManager_Frame extends JInternalFrame {
 						.addComponent(submitDeleteButton))
 				.addContainerGap(88, Short.MAX_VALUE)));
 
-		stuClassListTable = new JTable();
+		studentListTable = new JTable();
 
-		stuClassListTable.setModel(new DefaultTableModel(new Object[][] {},
+		studentListTable.setModel(new DefaultTableModel(new Object[][] {},
 				new String[] { "\u5B66\u751F\u7F16\u53F7", "\u5B66\u751F\u59D3\u540D", "\u6240\u5C5E\u73ED\u7EA7",
 						"\u5B66\u751F\u6027\u522B", "\u767B\u5F55\u5BC6\u7801" }) {
 			boolean[] columnEditables = new boolean[] { false, false, false, false, false };
@@ -167,8 +175,33 @@ public class StudentManager_Frame extends JInternalFrame {
 				return columnEditables[column];
 			}
 		});
-		scrollPane.setViewportView(stuClassListTable);
+		scrollPane.setViewportView(studentListTable);
 		getContentPane().setLayout(groupLayout);
 
 	}
+
+	private void setTable(Student student) {// 更新表格数据
+		// 获取界面模型
+		DefaultTableModel dft = (DefaultTableModel) studentListTable.getModel();
+		dft.setRowCount(0);
+
+		StudentDao studentDao = new StudentDao();
+		try {
+			List<Student> classList =  studentDao.getStudentList(student);
+			for (Student s : classList) {
+				Vector v = new Vector();
+				v.add(s.getId());
+				v.add(s.getName());
+				v.add(s.getPassword());
+				v.add(s.getSex());
+				v.add(s.getStuclassid());
+				dft.addRow(v);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		studentDao.closeDao();
+	}
+	
 }

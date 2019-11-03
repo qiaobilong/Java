@@ -98,6 +98,13 @@ public class Main_Frame extends JFrame {
 		menu_1.add(menuItem_2);
 
 		JMenuItem menuItem_3 = new JMenuItem("\u5B66\u751F\u4FE1\u606F");
+		menuItem_3.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				StudentManager_Frame studentManager_Frame = new StudentManager_Frame();
+				studentManager_Frame.setVisible(true);
+				desktopPane.add(studentManager_Frame);
+			}
+		});
 		menuItem_3.setIcon(new ImageIcon(Main_Frame.class.getResource("/images/\u7528\u6237\u5217\u8868.png")));
 		menu_1.add(menuItem_3);
 
