@@ -11,7 +11,7 @@ public class StudentDao extends BaseDao {
 		try {
 			PreparedStatement prepareStatement = con.prepareStatement(sql);
 			prepareStatement.setString(1, student.getName());
-			prepareStatement.setInt(2, student.getStuclass().getId());
+			prepareStatement.setInt(2, student.getStuclassid());
 			prepareStatement.setString(3, student.getPassword());
 			prepareStatement.setString(4, student.getSex());
 			if (prepareStatement.executeUpdate() > 0) {// 返回的是int，表示有多少条数据受到了影响
@@ -31,7 +31,7 @@ public class StudentDao extends BaseDao {
 			prepareStatement.setString(1, student.getName());
 			prepareStatement.setString(2, student.getPassword());
 			prepareStatement.setString(3, student.getSex());
-			prepareStatement.setInt(4, student.getStuclass().getId());
+			prepareStatement.setInt(4, student.getStuclassid());
 			prepareStatement.setInt(5, student.getId());
 			if (prepareStatement.executeUpdate() > 0) {// 返回的是int，表示有多少条数据受到了影响
 				return true;

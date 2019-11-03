@@ -5,20 +5,20 @@ public class Student {
 	private String name;
 	private String password;
 	private String sex;
-	private StuClass stuclass;
+	private int stuclassid;
 
 	public Student() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public Student(int id, String name, String password, String sex, StuClass stuclass) {
+	public Student(int id, String name, String password, String sex, int stuclassid) {
 		super();
 		this.id = id;
 		this.name = name;
 		this.password = password;
 		this.sex = sex;
-		this.stuclass = stuclass;
+		this.stuclassid = stuclassid;
 	}
 
 	public int getId() {
@@ -53,18 +53,18 @@ public class Student {
 		this.sex = sex;
 	}
 
-	public StuClass getStuclass() {
-		return stuclass;
+	public int getStuclassid() {
+		return stuclassid;
 	}
 
-	public void setStuclass(StuClass stuclass) {
-		this.stuclass = stuclass;
+	public void setStuclassid(int stuclassid) {
+		this.stuclassid = stuclassid;
 	}
 
 	@Override
 	public String toString() {
-		return "Student [id=" + id + ", name=" + name + ", password=" + password + ", sex=" + sex + ", stuclass="
-				+ stuclass + "]";
+		return "Student [id=" + id + ", name=" + name + ", password=" + password + ", sex=" + sex + ", stuclassid="
+				+ stuclassid + "]";
 	}
 
 }

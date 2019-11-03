@@ -4,7 +4,6 @@ public class StuClass {
 	private int id;
 	private String name;
 	private String info;
-	private Student students [];
 
 	public StuClass() {
 		super();
@@ -35,13 +34,6 @@ public class StuClass {
 		this.info = info;
 	}
 
-	public Student[] getStudents() {
-		return students;
-	}
-
-	public void setStudentid(Student[] students) {
-		this.students = students;
-	}
 
 	@Override
 	public String toString() {

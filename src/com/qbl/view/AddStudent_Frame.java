@@ -151,7 +151,7 @@ public class AddStudent_Frame extends JInternalFrame {
 		student.setName(studentName);
 		student.setPassword(studentPassword);
 		student.setSex(studentSex);
-		student.setStuclass(stuClass);
+		student.setStuclassid(stuClass.getId());
 		StudentDao studentDao = new StudentDao();
 		if (studentDao.insert(student)) {
 			JOptionPane.showMessageDialog(this, "提交成功！");
